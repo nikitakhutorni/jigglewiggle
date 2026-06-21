@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.jigglewiggle" path="/org/gnome/shell/extensions/jigglewiggle/">
+    <key name="enabled" type="b">
+      <default>true</default>
+      <summary>Enable jigglewiggle</summary>
+      <description>Whether the extension should sample pointer movement and react to wiggles.</description>
+    </key>
+
+    <key name="effect-mode" type="s">
+      <choices>
+        <choice value="animated-pointer"/>
+        <choice value="cursor-size"/>
+      </choices>
+      <default>'animated-pointer'</default>
+      <summary>Effect mode</summary>
+      <description>Whether wiggles draw an animated pointer or temporarily increase the real cursor size.</description>
+    </key>
+
+    <key name="sensitivity" type="s">
+      <choices>
+        <choice value="low"/>
+        <choice value="medium"/>
+        <choice value="high"/>
+      </choices>
+      <default>'medium'</default>
+      <summary>Wiggle sensitivity</summary>
+      <description>How easily pointer movement is classified as a wiggle.</description>
+    </key>
+
+    <key name="max-scale" type="d">
+      <range min="1.5" max="4.0"/>
+      <default>2.75</default>
+      <summary>Maximum scale</summary>
+      <description>The largest scale reached by the animated pointer or cursor-size effect.</description>
+    </key>
+
+    <key name="growth-speed-ms" type="i">
+      <range min="0" max="500"/>
+      <default>130</default>
+      <summary>Growth speed</summary>
+      <description>Duration in milliseconds for the grow animation.</description>
+    </key>
+
+    <key name="peak-hold-ms" type="i">
+      <range min="0" max="800"/>
+      <default>180</default>
+      <summary>Peak hold duration</summary>
+      <description>How long the animated pointer remains at full size after a wiggle settles.</description>
+    </key>
+
+    <key name="shrink-speed-ms" type="i">
+      <range min="0" max="800"/>
+      <default>240</default>
+      <summary>Shrink speed</summary>
+      <description>Duration in milliseconds for the fade and shrink animation.</description>
+    </key>
+
+    <key name="pointer-opacity" type="d">
+      <range min="0.1" max="1.0"/>
+      <default>1.0</default>
+      <summary>Pointer opacity</summary>
+      <description>Final opacity for the animated pointer.</description>
+    </key>
+
+    <key name="hide-system-cursor" type="b">
+      <default>true</default>
+      <summary>Hide system cursor</summary>
+      <description>Whether to temporarily hide the real cursor while the animated pointer is visible.</description>
+    </key>
+
+    <key name="overlay-opacity" type="d">
+      <range min="0.1" max="1.0"/>
+      <default>0.82</default>
+      <summary>Deprecated overlay opacity</summary>
+      <description>Compatibility key for older same-session module caches. The current extension does not use it.</description>
+    </key>
+
+    <key name="color-mode" type="s">
+      <choices>
+        <choice value="accent"/>
+        <choice value="custom"/>
+        <choice value="high-contrast"/>
+      </choices>
+      <default>'high-contrast'</default>
+      <summary>Deprecated color mode</summary>
+      <description>Compatibility key for older same-session module caches. The current extension does not use it.</description>
+    </key>
+
+    <key name="custom-color" type="s">
+      <default>'#ffffff'</default>
+      <summary>Deprecated custom color</summary>
+      <description>Compatibility key for older same-session module caches. The current extension does not use it.</description>
+    </key>
+
+    <key name="show-halo" type="b">
+      <default>false</default>
+      <summary>Deprecated show halo</summary>
+      <description>Compatibility key for older same-session module caches. The current extension does not use it.</description>
+    </key>
+
+    <key name="show-pointer" type="b">
+      <default>true</default>
+      <summary>Deprecated show pointer</summary>
+      <description>Compatibility key for older same-session module caches. The current extension does not use it.</description>
+    </key>
+
+    <key name="respect-reduced-motion" type="b">
+      <default>true</default>
+      <summary>Respect reduced motion</summary>
+      <description>Whether to skip smooth animation when desktop animations are disabled.</description>
+    </key>
+
+    <key name="sample-interval-ms" type="i">
+      <range min="10" max="33"/>
+      <default>16</default>
+      <summary>Pointer sample interval</summary>
+      <description>How often pointer position is sampled, in milliseconds.</description>
+    </key>
+  </schema>
+</schemalist>

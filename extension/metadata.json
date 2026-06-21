@@ -1,0 +1,10 @@
+{
+  "uuid": "jigglewiggle@nikitakhutorni.github.io",
+  "name": "jigglewiggle",
+  "description": "Make the pointer easier to find by enlarging it when the mouse is wiggled.",
+  "shell-version": ["50"],
+  "settings-schema": "org.gnome.shell.extensions.jigglewiggle",
+  "version": 4,
+  "version-name": "0.4.0",
+  "url": "https://github.com/nikitakhutorni/jigglewiggle"
+}

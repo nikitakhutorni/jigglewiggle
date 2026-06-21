@@ -1,0 +1,9 @@
+dist/
+node_modules/
+coverage/
+*.zip
+
+extension/schemas/gschemas.compiled
+
+.DS_Store
+

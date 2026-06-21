@@ -1,0 +1,24 @@
+{
+  "name": "jigglewiggle",
+  "version": "0.4.0",
+  "description": "GNOME Shell 50 extension that enlarges the pointer when the mouse is wiggled.",
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "scripts": {
+    "test": "node scripts/validate.mjs && glib-compile-schemas --strict --dry-run extension/schemas && node --test tests/*.test.js",
+    "pack": "./scripts/pack.sh",
+    "install-extension": "./scripts/install.sh"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nikitakhutorni/jigglewiggle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nikitakhutorni/jigglewiggle/issues"
+  },
+  "homepage": "https://github.com/nikitakhutorni/jigglewiggle#readme"
+}
