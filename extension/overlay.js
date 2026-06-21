@@ -11,6 +11,7 @@ const RENDER_SIZE = POINTER_SIZE * RENDER_SCALE;
 const RENDER_HOTSPOT_X = POINTER_HOTSPOT_X * RENDER_SCALE;
 const RENDER_HOTSPOT_Y = POINTER_HOTSPOT_Y * RENDER_SCALE;
 const MIN_SCALE = 1 / RENDER_SCALE;
+const DEFAULT_MIN_VISIBLE_MS = 420;
 
 export class CursorOverlay {
     constructor(extensionPath = null, onHidden = null) {
@@ -40,6 +41,7 @@ export class CursorOverlay {
         this._visible = false;
         this._config = null;
         this._hideTimeoutId = 0;
+        this._shownAtMs = -Infinity;
         this._onHidden = onHidden;
     }
 
@@ -56,6 +58,7 @@ export class CursorOverlay {
         this._visible = true;
         this._moveActor(x, y);
         this._clearHideTimeout();
+        this._shownAtMs = GLib.get_monotonic_time() / 1000;
 
         this.actor.remove_all_transitions();
         this.actor.visible = true;
@@ -100,7 +103,14 @@ export class CursorOverlay {
             return;
         }
 
-        const holdMs = Math.max(config.peakHoldMs ?? 0, 0);
+        const elapsedMs = Math.max(
+            GLib.get_monotonic_time() / 1000 - this._shownAtMs,
+            0);
+        const minimumVisibleMs = config.minimumVisibleMs ?? DEFAULT_MIN_VISIBLE_MS;
+        const holdMs = Math.max(
+            config.peakHoldMs ?? 0,
+            minimumVisibleMs - elapsedMs,
+            0);
         if (holdMs > 0) {
             const targetScale = this._toActorScale(config.maxScale);
             this.actor.scale_x = targetScale;

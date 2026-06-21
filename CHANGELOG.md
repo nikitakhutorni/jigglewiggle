@@ -4,6 +4,26 @@ All notable changes to jigglewiggle are documented here.
 
 This project follows Semantic Versioning.
 
+## [0.4.1] - 2026-06-21
+
+### Added
+
+- Add a README demo GIF.
+
+### Fixed
+
+- Sample stage motion events with a polling fallback so pointer tracking stays
+  stable over app windows on secondary monitors.
+- Preserve fractional pointer movement after detection so the effect does not
+  end early on small high-DPI movements.
+- Keep the enlarged pointer visible for a short minimum duration to avoid
+  flash-and-disappear wiggles.
+
+### Changed
+
+- Retune disappearance timing to `120 ms` peak hold, `160 ms` shrink, and a
+  `420 ms` minimum visible duration after the multi-monitor tracking fix.
+
 ## [0.4.0] - 2026-06-21
 
 ### Added

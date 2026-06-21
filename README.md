@@ -2,10 +2,12 @@
 
 [![CI](https://github.com/nikitakhutorni/jigglewiggle/actions/workflows/ci.yml/badge.svg)](https://github.com/nikitakhutorni/jigglewiggle/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.4.0-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.4.1-blue.svg)](CHANGELOG.md)
 
 GNOME Shell 50 extension that makes the pointer easier to find. Wiggle the
 mouse and it briefly shows a larger pointer at the real cursor hotspot.
+
+![jigglewiggle demo](docs/assets/demo.gif)
 
 The default behavior is modeled after macOS "Shake mouse pointer to locate":
 grow quickly, hold briefly, then shrink away. The real cursor is temporarily

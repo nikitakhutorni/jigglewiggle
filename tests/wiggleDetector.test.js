@@ -80,6 +80,35 @@ test('stays active briefly and ends after movement settles', () => {
     assert.equal(result.ended, true);
 });
 
+test('stays active on fractional movement after detection', () => {
+    const detector = new WiggleDetector({sensitivity: 'medium'});
+    const points = [
+        [0, 0],
+        [45, 0],
+        [-10, 0],
+        [55, 0],
+        [-15, 0],
+        [60, 0],
+        [-20, 0],
+        [65, 0],
+    ];
+
+    let result;
+    for (let index = 0; index < points.length; index++) {
+        const [x, y] = points[index];
+        result = detector.sample(x, y, index * 24);
+    }
+
+    assert.equal(result.wiggling, true);
+
+    result = detector.sample(65.4, 0, 300);
+    assert.equal(result.wiggling, true);
+
+    result = detector.sample(65.8, 0, 460);
+    assert.equal(result.wiggling, true);
+    assert.equal(result.ended, false);
+});
+
 test('high sensitivity triggers before low sensitivity for smaller wiggles', () => {
     const high = new WiggleDetector({sensitivity: 'high'});
     const low = new WiggleDetector({sensitivity: 'low'});

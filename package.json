@@ -1,6 +1,6 @@
 {
   "name": "jigglewiggle",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "GNOME Shell 50 extension that enlarges the pointer when the mouse is wiggled.",
   "type": "module",
   "private": false,

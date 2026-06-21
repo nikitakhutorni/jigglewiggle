@@ -45,6 +45,9 @@ const EMPTY_METRICS = Object.freeze({
     travelRatio: 0,
 });
 
+const MIN_MOTION_PX = 0.25;
+const MIN_SAMPLE_DISTANCE_PX = 1;
+
 export class WiggleDetector {
     constructor(options = {}) {
         this.configure(options);
@@ -104,10 +107,10 @@ export class WiggleDetector {
         if (previous) {
             const distance = distanceBetween(previous, sample);
 
-            if (distance >= 1)
+            if (distance >= MIN_MOTION_PX)
                 this._lastMotionTimeMs = sample.timeMs;
 
-            if (distance < 1) {
+            if (distance < MIN_SAMPLE_DISTANCE_PX) {
                 this._pruneSamples(sample.timeMs);
                 return;
             }

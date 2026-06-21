@@ -1,6 +1,6 @@
 # macOS Pointer Location Research
 
-jigglewiggle v0.4.0 uses a clean-room approximation of macOS "Shake mouse
+jigglewiggle v0.4.1 uses a clean-room approximation of macOS "Shake mouse
 pointer to locate." Apple documents the feature, but the transient animation
 timings and scale multiplier are not public API.
 
@@ -40,7 +40,7 @@ I did not find published Apple constants for:
 Those are either private implementation details or embedded in closed-source
 system components.
 
-## v0.4.0 Approximation
+## v0.4.1 Approximation
 
 The defaults are intentionally tunable and conservative:
 
@@ -48,8 +48,9 @@ The defaults are intentionally tunable and conservative:
 - medium settle delay: `160 ms`
 - maximum scale: `2.75x`
 - grow duration: `130 ms`
-- peak hold after settle: `180 ms`
-- shrink duration: `240 ms`
+- peak hold after settle: `120 ms`
+- minimum visible duration: `420 ms`
+- shrink duration: `160 ms`
 - pointer opacity: `1.0`
 
 The visual implementation is an animated pointer-shaped Shell actor anchored at

@@ -10,6 +10,7 @@ export function readExtensionSettings(
         maxScale: settings.get_double('max-scale'),
         growthSpeedMs: settings.get_int('growth-speed-ms'),
         peakHoldMs: settings.get_int('peak-hold-ms'),
+        minimumVisibleMs: settings.get_int('minimum-visible-ms'),
         shrinkSpeedMs: settings.get_int('shrink-speed-ms'),
         pointerOpacity: settings.get_double('pointer-opacity'),
         hideSystemCursor: settings.get_boolean('hide-system-cursor'),
