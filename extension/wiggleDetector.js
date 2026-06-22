@@ -15,11 +15,11 @@ export const SENSITIVITY_PROFILES = Object.freeze({
     medium: Object.freeze({
         windowMs: 360,
         minDurationMs: 110,
-        minTravelPx: 130,
-        minAverageSpeedPxPerSec: 850,
+        minTravelPx: 105,
+        minAverageSpeedPxPerSec: 650,
         minDirectionChanges: 3,
-        minTravelRatio: 1.8,
-        minSegmentPx: 12,
+        minTravelRatio: 1.7,
+        minSegmentPx: 10,
         maxTurnDotProduct: 0.0,
         settleDelayMs: 160,
     }),
@@ -45,8 +45,8 @@ const EMPTY_METRICS = Object.freeze({
     travelRatio: 0,
 });
 
-const MIN_MOTION_PX = 0.25;
 const MIN_SAMPLE_DISTANCE_PX = 1;
+const SETTLE_MOTION_PX = 3;
 
 export class WiggleDetector {
     constructor(options = {}) {
@@ -63,6 +63,8 @@ export class WiggleDetector {
         this._samples = [];
         this._wiggling = false;
         this._lastMotionTimeMs = -Infinity;
+        this._lastDetectedTimeMs = -Infinity;
+        this._settleAnchor = null;
         this._lastMetrics = EMPTY_METRICS;
     }
 
@@ -73,8 +75,13 @@ export class WiggleDetector {
 
         const metrics = this._calculateMetrics();
         const detected = this._isDetected(metrics);
+        if (detected)
+            this._lastDetectedTimeMs = timeMs;
+
         const shouldSettle = this._wiggling &&
-            timeMs - this._lastMotionTimeMs > this._profile.settleDelayMs;
+            !detected &&
+            (timeMs - this._lastMotionTimeMs > this._profile.settleDelayMs ||
+                timeMs - this._lastDetectedTimeMs > this._maxActiveGraceMs());
 
         const wasWiggling = this._wiggling;
 
@@ -102,13 +109,12 @@ export class WiggleDetector {
     }
 
     _addSample(sample) {
+        this._updateSettleMotion(sample);
+
         const previous = this._samples.at(-1);
 
         if (previous) {
             const distance = distanceBetween(previous, sample);
-
-            if (distance >= MIN_MOTION_PX)
-                this._lastMotionTimeMs = sample.timeMs;
 
             if (distance < MIN_SAMPLE_DISTANCE_PX) {
                 this._pruneSamples(sample.timeMs);
@@ -174,6 +180,24 @@ export class WiggleDetector {
             metrics.averageSpeedPxPerSec >= this._profile.minAverageSpeedPxPerSec &&
             metrics.directionChanges >= this._profile.minDirectionChanges &&
             metrics.travelRatio >= this._profile.minTravelRatio;
+    }
+
+    _updateSettleMotion(sample) {
+        if (!this._settleAnchor) {
+            this._settleAnchor = sample;
+            this._lastMotionTimeMs = sample.timeMs;
+            return;
+        }
+
+        if (distanceBetween(this._settleAnchor, sample) < SETTLE_MOTION_PX)
+            return;
+
+        this._settleAnchor = sample;
+        this._lastMotionTimeMs = sample.timeMs;
+    }
+
+    _maxActiveGraceMs() {
+        return this._profile.settleDelayMs * 2;
     }
 }
 

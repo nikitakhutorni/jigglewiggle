@@ -13,7 +13,6 @@ export function readExtensionSettings(
         minimumVisibleMs: settings.get_int('minimum-visible-ms'),
         shrinkSpeedMs: settings.get_int('shrink-speed-ms'),
         pointerOpacity: settings.get_double('pointer-opacity'),
-        hideSystemCursor: settings.get_boolean('hide-system-cursor'),
         reduceMotion: shouldReduceMotion(settings, interfaceSettings),
         sampleIntervalMs: settings.get_int('sample-interval-ms'),
     };

@@ -14,7 +14,6 @@ gnome-extensions pack \
     --schema "${SCHEMA}" \
     --extra-source "${SOURCE_DIR}/assets/pointer.svg" \
     --extra-source "${SOURCE_DIR}/cursorSizeEffect.js" \
-    --extra-source "${SOURCE_DIR}/cursorVisibility.js" \
     --extra-source "${SOURCE_DIR}/overlay.js" \
     --extra-source "${SOURCE_DIR}/pointerSampler.js" \
     --extra-source "${SOURCE_DIR}/settings.js" \

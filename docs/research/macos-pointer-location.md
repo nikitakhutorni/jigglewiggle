@@ -1,6 +1,6 @@
 # macOS Pointer Location Research
 
-jigglewiggle v0.4.1 uses a clean-room approximation of macOS "Shake mouse
+jigglewiggle v0.5.0 uses a clean-room approximation of macOS "Shake mouse
 pointer to locate." Apple documents the feature, but the transient animation
 timings and scale multiplier are not public API.
 
@@ -40,7 +40,7 @@ I did not find published Apple constants for:
 Those are either private implementation details or embedded in closed-source
 system components.
 
-## v0.4.1 Approximation
+## v0.5.0 Approximation
 
 The defaults are intentionally tunable and conservative:
 
@@ -48,9 +48,9 @@ The defaults are intentionally tunable and conservative:
 - medium settle delay: `160 ms`
 - maximum scale: `2.75x`
 - grow duration: `130 ms`
-- peak hold after settle: `120 ms`
-- minimum visible duration: `420 ms`
-- shrink duration: `160 ms`
+- peak hold after settle: `0 ms`
+- minimum visible duration: `250 ms`
+- shrink duration: `150 ms`
 - pointer opacity: `1.0`
 
 The visual implementation is an animated pointer-shaped Shell actor anchored at
@@ -58,7 +58,6 @@ the pointer hotspot. It renders the SVG at 128 px before animation so large
 sizes are not produced by scaling a 32 px texture. It avoids repeated writes to
 the desktop cursor-size setting.
 
-GNOME Shell 50 / Mutter 18 exposes cursor visibility inhibition through
-`Meta.CursorTracker` in the local introspection data. jigglewiggle uses that
-path only when available and restores visibility when the effect ends or the
-extension is disabled.
+The marker is visual-only. jigglewiggle does not hide or inhibit the real
+cursor, so hover, text selection, and clicks continue to target the normal
+pointer while the marker animates.

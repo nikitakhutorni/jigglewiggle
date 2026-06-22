@@ -4,6 +4,31 @@ All notable changes to jigglewiggle are documented here.
 
 This project follows Semantic Versioning.
 
+## [0.5.0] - 2026-06-22
+
+### Fixed
+
+- Stop hiding or inhibiting the real cursor in animated-pointer mode. The
+  enlarged pointer is now visual-only, so hover, text selection, and clicks keep
+  working normally while it animates.
+- Keep the active wiggle alive on motion events with repeated coordinates,
+  which can happen over text-cursor surfaces.
+- Let stale repeated-coordinate motion events settle normally so the marker can
+  shrink over desktop, overview, and launcher surfaces.
+- Let ordinary non-wiggle movement settle after a short grace period instead of
+  keeping the marker pinned at full size.
+- Make default medium detection more tolerant of compact terminal/text-surface
+  wiggles.
+
+### Removed
+
+- Remove the cursor-hiding preference and runtime cursor-visibility inhibition.
+
+### Changed
+
+- Retune disappearance timing to `0 ms` peak hold, `150 ms` shrink, and a
+  `250 ms` minimum visible duration.
+
 ## [0.4.1] - 2026-06-21
 
 ### Added

@@ -44,21 +44,21 @@
 
     <key name="peak-hold-ms" type="i">
       <range min="0" max="800"/>
-      <default>120</default>
+      <default>0</default>
       <summary>Peak hold duration</summary>
       <description>How long the animated pointer remains at full size after a wiggle settles.</description>
     </key>
 
     <key name="minimum-visible-ms" type="i">
       <range min="0" max="1200"/>
-      <default>420</default>
+      <default>250</default>
       <summary>Minimum visible duration</summary>
       <description>Minimum time in milliseconds that the animated pointer remains visible before it can shrink away.</description>
     </key>
 
     <key name="shrink-speed-ms" type="i">
       <range min="0" max="800"/>
-      <default>160</default>
+      <default>150</default>
       <summary>Shrink speed</summary>
       <description>Duration in milliseconds for the fade and shrink animation.</description>
     </key>
@@ -71,9 +71,9 @@
     </key>
 
     <key name="hide-system-cursor" type="b">
-      <default>true</default>
-      <summary>Hide system cursor</summary>
-      <description>Whether to temporarily hide the real cursor while the animated pointer is visible.</description>
+      <default>false</default>
+      <summary>Deprecated hide system cursor</summary>
+      <description>Compatibility key for earlier versions. The current extension does not hide the real cursor.</description>
     </key>
 
     <key name="overlay-opacity" type="d">

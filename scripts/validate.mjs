@@ -30,7 +30,6 @@ for (const file of [
     'extension.js',
     'assets/pointer.svg',
     'cursorSizeEffect.js',
-    'cursorVisibility.js',
     'overlay.js',
     'pointerSampler.js',
     'prefs.js',
@@ -51,6 +50,7 @@ assert.match(schema, /<key name="max-scale" type="d">/);
 assert.match(schema, /<key name="peak-hold-ms" type="i">/);
 assert.match(schema, /<key name="pointer-opacity" type="d">/);
 assert.match(schema, /<key name="hide-system-cursor" type="b">/);
+assert.match(schema, /Deprecated hide system cursor/);
 assert.match(schema, /Deprecated show halo/);
 assert.match(schema, /<key name="respect-reduced-motion" type="b">/);
 
@@ -59,8 +59,8 @@ assert.doesNotMatch(extensionSource, /\bimports\./, 'extension.js should use ES 
 assert.match(extensionSource, /extends Extension/, 'extension must subclass Extension');
 assert.doesNotMatch(extensionSource, /effectMode === ['"]overlay['"]/,
     'runtime should not branch on removed overlay effect mode');
-assert.match(extensionSource, /CursorVisibility/,
-    'extension should restore the system cursor after animated pointer effects');
+assert.doesNotMatch(extensionSource, /CursorVisibility|inhibit_cursor_visibility/,
+    'animated pointer mode must not hide or inhibit the real cursor');
 
 console.log(`jigglewiggle ${version} project metadata is valid.`);
 

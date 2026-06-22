@@ -4,7 +4,6 @@ import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import {CursorSizeEffect} from './cursorSizeEffect.js';
-import {CursorVisibility} from './cursorVisibility.js';
 import {CursorOverlay} from './overlay.js';
 import {PointerSampler} from './pointerSampler.js';
 import {readExtensionSettings} from './settings.js';
@@ -17,14 +16,10 @@ export default class ExtensionImpl extends Extension {
         this._settings = this.getSettings();
         this._interfaceSettings = this._createOptionalSettings(INTERFACE_SCHEMA);
         this._detector = new WiggleDetector();
-        this._cursorVisibility = new CursorVisibility(global.backend);
-        this._overlay = new CursorOverlay(this.path, () => {
-            this._cursorVisibility?.show();
-        });
+        this._overlay = new CursorOverlay(this.path);
         this._cursorSizeEffect = new CursorSizeEffect(this._interfaceSettings);
-        this._sampler = new PointerSampler((x, y, timeMs) => {
-            this._samplePointer(x, y, timeMs);
-        });
+        this._sampler = new PointerSampler(
+            (x, y, timeMs) => this._samplePointer(x, y, timeMs));
 
         Main.uiGroup.add_child(this._overlay.actor);
 
@@ -44,9 +39,6 @@ export default class ExtensionImpl extends Extension {
 
         this._overlay?.destroy();
         this._overlay = null;
-
-        this._cursorVisibility?.destroy();
-        this._cursorVisibility = null;
 
         this._cursorSizeEffect?.destroy();
         this._cursorSizeEffect = null;
@@ -74,11 +66,9 @@ export default class ExtensionImpl extends Extension {
         this._detector.configure({sensitivity: this._config.sensitivity});
         this._overlay.configure(this._config);
         this._cursorSizeEffect.configure(this._config);
-        this._cursorVisibility.configure(this._config);
 
         if (this._config.effectMode === 'cursor-size') {
             this._overlay.hideImmediate();
-            this._cursorVisibility.show();
         } else {
             this._cursorSizeEffect.hide();
         }
@@ -87,7 +77,6 @@ export default class ExtensionImpl extends Extension {
             this._sampler.stop();
             this._detector.reset();
             this._overlay.hideImmediate();
-            this._cursorVisibility.show();
             this._cursorSizeEffect.hide();
             return;
         }
@@ -124,7 +113,6 @@ export default class ExtensionImpl extends Extension {
                 return;
         }
 
-        this._cursorVisibility.hide();
         this._overlay.showAt(x, y, this._config);
     }
 

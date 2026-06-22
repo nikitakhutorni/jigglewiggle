@@ -41,14 +41,6 @@ class PreferencesPage extends Adw.PreferencesPage {
         this._settings.bind('enabled', enabledRow, 'active',
             Gio.SettingsBindFlags.DEFAULT);
         group.add(enabledRow);
-
-        const hideCursorRow = new Adw.SwitchRow({
-            title: _('Hide System Cursor'),
-            subtitle: _('Avoid showing two cursors while locating the pointer.'),
-        });
-        this._settings.bind('hide-system-cursor', hideCursorRow, 'active',
-            Gio.SettingsBindFlags.DEFAULT);
-        group.add(hideCursorRow);
     }
 
     _addDetectionGroup() {

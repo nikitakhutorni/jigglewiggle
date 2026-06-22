@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/nikitakhutorni/jigglewiggle/actions/workflows/ci.yml/badge.svg)](https://github.com/nikitakhutorni/jigglewiggle/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.4.1-blue.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.5.0-blue.svg)](CHANGELOG.md)
 
 GNOME Shell 50 extension that makes the pointer easier to find. Wiggle the
 mouse and it briefly shows a larger pointer at the real cursor hotspot.
@@ -10,9 +10,8 @@ mouse and it briefly shows a larger pointer at the real cursor hotspot.
 ![jigglewiggle demo](docs/assets/demo.gif)
 
 The default behavior is modeled after macOS "Shake mouse pointer to locate":
-grow quickly, hold briefly, then shrink away. The real cursor is temporarily
-hidden while the marker is visible when Mutter supports cursor visibility
-inhibition.
+grow quickly, hold briefly, then shrink away. The real cursor remains active
+for hover, text selection, and clicks while the marker animates.
 
 ## Install
 
@@ -44,7 +43,6 @@ make prefs
 Available controls:
 
 - Enabled
-- Hide system cursor
 - Wiggle sensitivity
 - Maximum scale
 - Growth speed
@@ -84,9 +82,8 @@ make uninstall
 - Clean-room implementation; no copied code or assets from Jiggle or other
   cursor extensions.
 - Cursor bitmap extraction is not implemented.
-- Cursor hiding uses Mutter cursor visibility inhibition when available. If
-  that API is unavailable, the extension keeps working with the real cursor
-  visible.
+- The enlarged pointer is visual-only; the real cursor remains visible and
+  interactive.
 - Apple does not publish the exact timing constants for macOS pointer location.
   The defaults are a clean-room approximation; see
   [docs/research/macos-pointer-location.md](docs/research/macos-pointer-location.md).

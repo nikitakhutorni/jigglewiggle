@@ -11,7 +11,7 @@ const RENDER_SIZE = POINTER_SIZE * RENDER_SCALE;
 const RENDER_HOTSPOT_X = POINTER_HOTSPOT_X * RENDER_SCALE;
 const RENDER_HOTSPOT_Y = POINTER_HOTSPOT_Y * RENDER_SCALE;
 const MIN_SCALE = 1 / RENDER_SCALE;
-const DEFAULT_MIN_VISIBLE_MS = 420;
+const DEFAULT_MIN_VISIBLE_MS = 250;
 
 export class CursorOverlay {
     constructor(extensionPath = null, onHidden = null) {
